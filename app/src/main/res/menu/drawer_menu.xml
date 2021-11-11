@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_ficha_tecnica"
+            android:icon="@drawable/ic_home"
+            android:title="Ficha Técnica" />
+        <item
+            android:id="@+id/nav_largo_hierro"
+            android:icon="@drawable/ic_design"
+            android:title="Largo del Hierro" />
+        <item
+            android:id="@+id/nav_marca"
+            android:icon="@drawable/ic_mark"
+            android:title="Marca" />
+        <item
+            android:id="@+id/nav_modelo"
+            android:icon="@drawable/ic_model"
+            android:title="Modelo" />
+    </group>
+
+    <item android:title="Social">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_ayuda"
+                    android:icon="@drawable/ic_help"
+                    android:title="Ayuda" />
+                <item
+                    android:id="@+id/nav_acerca_de"
+                    android:icon="@drawable/ic_info"
+                    android:title="¡Acerca de!" />
+            </group>
+        </menu>
+    </item>
+</menu>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="12dp"
+    android:foreground="?android:selectableItemBackground"
+    card_view:cardCornerRadius="10dp"
+    card_view:cardElevation="6dp"
+    card_view:contentPadding="4dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/item_imagen"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre Motor"
+            android:id="@+id/item_nombre_motor"
+            android:textStyle="bold"
+            android:layout_toEndOf="@id/item_imagen"
+            android:layout_toRightOf="@id/item_imagen"
+            android:layout_alignParentTop="true"
+            android:textSize="20sp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Marca del Motor"
+            android:id="@+id/item_marca"
+            android:layout_toEndOf="@id/item_imagen"
+            android:layout_toRightOf="@id/item_imagen"
+            android:layout_below="@id/item_nombre_motor"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Modelo del Motor"
+            android:id="@+id/item_modelo"
+            android:layout_toEndOf="@id/item_imagen"
+            android:layout_toRightOf="@id/item_imagen"
+            android:layout_below="@id/item_marca"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="La descripcion del motor es mas o menos esta, al menos algo así"
+            android:id="@+id/item_descripcion"
+            android:layout_toEndOf="@id/item_imagen"
+            android:layout_toRightOf="@id/item_imagen"
+            android:layout_below="@id/item_modelo"/>
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/item_favorito"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:src="@drawable/ic_favorite_border"/>
+
+
+    </RelativeLayout>
+
+</com.google.android.material.card.MaterialCardView>

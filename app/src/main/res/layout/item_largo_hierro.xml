@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view_marca"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="12dp"
+    android:foreground="?android:selectableItemBackground"
+    card_view:cardCornerRadius="10dp"
+    card_view:cardElevation="6dp"
+    card_view:contentPadding="4dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+        <TextView
+            android:id="@+id/item_largo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Largo del Hierro:"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:textStyle="bold"
+            android:textSize="18sp"/>
+        <TextView
+            android:id="@+id/item_largo_h"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="12.00"
+            android:layout_toEndOf="@id/item_largo"
+            android:layout_toRightOf="@id/item_largo"
+            android:layout_alignParentTop="true"
+            android:textSize="18sp"/>
+        <TextView
+            android:id="@+id/item_diametro_interior"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Diametro Interior:"
+            android:layout_below="@id/item_largo"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:textStyle="bold"
+            android:textSize="18sp"/>
+        <TextView
+            android:id="@+id/item_diametro_i"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2.00"
+            android:layout_toEndOf="@id/item_largo"
+            android:layout_toRightOf="@id/item_largo"
+            android:layout_below="@id/item_largo_h"
+            android:textSize="18sp"/>
+        <TextView
+            android:id="@+id/item_diametro_exterior"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Diametro Exterior:"
+            android:layout_below="@id/item_diametro_interior"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:textStyle="bold"
+            android:textSize="18sp"/>
+        <TextView
+            android:id="@+id/item_diametro_e"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5.00"
+            android:layout_toEndOf="@id/item_largo"
+            android:layout_toRightOf="@id/item_largo"
+            android:layout_below="@id/item_diametro_i"
+            android:textSize="18sp"/>
+    </RelativeLayout>
+
+</com.google.android.material.card.MaterialCardView>

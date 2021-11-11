@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primaryColor">#9c27b0</color>
+    <color name="primaryLightColor">#d05ce3</color>
+    <color name="primaryDarkColor">#6a0080</color>
+
+    <color name="secondaryColor">#4527a0</color>
+    <color name="secondaryLightColor">#7953d2</color>
+    <color name="secondaryDarkColor">#000070</color>
+
+    <color name="primaryTextColor">#ffffff</color>
+    <color name="secondaryTextColor">#ffffff</color>
+
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="black_overlay">#66000000</color>
+
+    <color name="progressBarIndicator">#ffffff</color>
+    <color name="progressBarTrack">#7953d2</color>
+
+</resources>
