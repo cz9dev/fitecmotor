@@ -1,9 +1,9 @@
-package zaldivar.carlos.fichatcnicademotor.model
+package zaldivar.carlos.fichatcnicademotor.model.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import czaldivarp.fitecmotor.model.AppDatabase
+import czaldivarp.fitecmotor.model.FichaTecnicaDatabase
 import czaldivarp.fitecmotor.model.entities.Marca
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -15,7 +15,7 @@ class MarcaViewModel(application: Application) : AndroidViewModel(application) {
     private val marcas: LiveData<List<Marca>>
 
     init {
-        val marcaDao = AppDatabase.getInstance(application).MarcaDao()
+        val marcaDao = FichaTecnicaDatabase.getInstance(application).MarcaDao()
         repository = MarcaRepository(marcaDao)
         marcas = repository.getMarcas
     }

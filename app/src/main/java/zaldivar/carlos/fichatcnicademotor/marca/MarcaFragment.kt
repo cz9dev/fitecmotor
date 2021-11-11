@@ -1,21 +1,16 @@
 package zaldivar.carlos.fichatcnicademotor.marca
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import czaldivarp.fitecmotor.model.AppDatabase
-import czaldivarp.fitecmotor.model.daos.MarcaDao
-import czaldivarp.fitecmotor.model.entities.Marca
 import zaldivar.carlos.fichatcnicademotor.R
-import zaldivar.carlos.fichatcnicademotor.model.MarcaViewModel
+import zaldivar.carlos.fichatcnicademotor.model.viewmodel.MarcaViewModel
 
 
 // TODO: Rename parameter arguments, choose names that match

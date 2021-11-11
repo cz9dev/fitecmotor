@@ -18,7 +18,7 @@ import czaldivarp.fitecmotor.model.entities.Modelo
     version = 1,
     exportSchema = false
 )
-abstract class AppDatabase : RoomDatabase() {
+abstract class FichaTecnicaDatabase : RoomDatabase() {
 
     abstract fun FichaTecnicaDao(): FichaTecnicaDao
 
@@ -33,7 +33,7 @@ abstract class AppDatabase : RoomDatabase() {
         /**
          * The only instance
          */
-        private var isInstance: AppDatabase? = null
+        private var isInstance: FichaTecnicaDatabase? = null
 
         /**
          * Gets the singleton instance of appDatabase.
@@ -42,12 +42,12 @@ abstract class AppDatabase : RoomDatabase() {
          * @return The singleton instance of appDatabase.
          */
         @Synchronized
-        fun getInstance(context: Context): AppDatabase {
+        fun getInstance(context: Context): FichaTecnicaDatabase {
             if (isInstance == null) {
                 isInstance = Room
                     .databaseBuilder(
                         context.applicationContext,
-                        AppDatabase::class.java,
+                        FichaTecnicaDatabase::class.java,
                         "ficha_tecnica"
                     )
                     .fallbackToDestructiveMigration()
@@ -56,7 +56,7 @@ abstract class AppDatabase : RoomDatabase() {
             synchronized(this){  // protection from concurrent execution on multiple threads
                 val isInstance = Room.databaseBuilder(
                     context.applicationContext,
-                    AppDatabase::class.java,
+                    FichaTecnicaDatabase::class.java,
                     "note_database"
                 ).fallbackToDestructiveMigration()  // Destroys old database on version change
                     .build()
