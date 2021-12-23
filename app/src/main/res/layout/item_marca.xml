@@ -30,16 +30,16 @@
             android:textSize="20sp"/>
 
         <ImageButton
-            android:id="@+id/ibEditNote"
+            android:id="@+id/ibEditMarca"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:layout_toStartOf="@+id/ibDeleteNote"
-            android:layout_toLeftOf="@+id/ibDeleteNote"
+            android:layout_toStartOf="@+id/ibDeleteMarca"
+            android:layout_toLeftOf="@+id/ibDeleteMarca"
             android:src="@drawable/ic_edit" />
         <ImageButton
-            android:id="@+id/ibDeleteNote"
+            android:id="@+id/ibDeleteMarca"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"

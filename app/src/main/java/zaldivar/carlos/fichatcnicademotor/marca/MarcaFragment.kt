@@ -1,9 +1,12 @@
 package zaldivar.carlos.fichatcnicademotor.marca
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -65,7 +68,7 @@ class MarcaFragment : Fragment() {
 
     private fun setupList(view: View) {
         var recyclerView: RecyclerView = view.findViewById(R.id.recyclerViewMarca)
-        var adapter = CustomAdapterMarca()
+        var adapter = CustomAdapterMarca(this)
         mMarcaViewModel = ViewModelProvider(this).get(MarcaViewModel::class.java)
         mMarcaViewModel.getMarcas().observe(viewLifecycleOwner, { marcas ->
             adapter.update(marcas)
@@ -100,5 +103,26 @@ class MarcaFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    fun raiseDialog(id: Int){
+        val dialogBuilder = AlertDialog.Builder(requireContext())
+        val updatedNote = EditText(requireContext())
+        updatedNote.hint = "Entre el nuevo texto"
+        dialogBuilder
+            .setCancelable(false)
+            .setPositiveButton("Guardar", DialogInterface.OnClickListener {
+                // The setPositiveButton method takes in two arguments
+                // More info here: https://developer.android.com/reference/kotlin/android/app/AlertDialog.Builder#setpositivebutton
+                // Use underscores when lambda arguments are not used
+                _,_ -> mMarcaViewModel.editMarca(id, updatedNote.text.toString())
+            })
+            .setNegativeButton("Cancelar", DialogInterface.OnClickListener {
+                    dialog, _ -> dialog.cancel()
+            })
+        val alert = dialogBuilder.create()
+        alert.setTitle("Actualizar Marca")
+        alert.setView(updatedNote)
+        alert.show()
     }
 }

@@ -55,7 +55,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         setSupportActionBar(toolbar)
 
-
         tongle = ActionBarDrawerToggle(
             this,
             mDrawerLayout,
@@ -76,6 +75,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         PACKAGE_ID = "zaldivar.carlos.calcelect"
         // find progressbar by its id
         progressBar = findViewById(R.id.progressBar)
+
 
         if (MyPreferences(this).darkMode) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
@@ -105,14 +105,25 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             makeDecision()
 
         }).start()
-
     }
 
-    //traatando de poner menu
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val menuInflater = menuInflater
         menuInflater.inflate(R.menu.conf_menu, menu)
         return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (tongle.onOptionsItemSelected(item)) {
+            return true
+        }
+        when (item.itemId) {
+            R.id.action_modo_oscuro -> {
+                changeTheme()
+                mNavigationView.setCheckedItem(R.id.nav_ficha_tecnica)
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onBackPressed() {
@@ -154,20 +165,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         tongle.onConfigurationChanged(newConfig)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (tongle.onOptionsItemSelected(item)) {
-            return true
-        }
-        //return super.onOptionsItemSelected(item)
-        when (item.itemId) {
-            R.id.action_modo_oscuro -> {
-                changeTheme()
-                mNavigationView.setCheckedItem(R.id.nav_ficha_tecnica)
-            }
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     fun makeDecision() {
