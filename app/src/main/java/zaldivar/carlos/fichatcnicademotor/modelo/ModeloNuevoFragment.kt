@@ -10,8 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.textfield.TextInputLayout
 import zaldivar.carlos.fichatcnicademotor.R
 import zaldivar.carlos.fichatcnicademotor.extensions.hideKeyboard
-import zaldivar.carlos.fichatcnicademotor.marca.MarcaFragment
-import zaldivar.carlos.fichatcnicademotor.model.viewmodel.MarcaViewModel
 import zaldivar.carlos.fichatcnicademotor.model.viewmodel.ModeloViewModel
 
 // TODO: Rename parameter arguments, choose names that match
@@ -119,8 +117,8 @@ class ModeloNuevoFragment : Fragment() {
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
+         * @param id_modelo Parameter 1.
+         * @param modelo Parameter 2.
          * @return A new instance of fragment ModeloNuevoFragment.
          */
         // TODO: Rename and change types and number of parameters
