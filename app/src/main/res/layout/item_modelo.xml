@@ -26,7 +26,31 @@
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:textStyle="bold"
+            android:layout_centerVertical="true"
             android:textSize="20sp"/>
+
+        <ImageButton
+            android:id="@+id/ibEditModelo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_toStartOf="@+id/ibDeleteModelo"
+            android:layout_toLeftOf="@+id/ibDeleteModelo"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_edit" />
+
+        <ImageButton
+            android:id="@+id/ibDeleteModelo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_delete" />
+
     </RelativeLayout>
 
 </com.google.android.material.card.MaterialCardView>

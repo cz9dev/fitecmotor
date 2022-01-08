@@ -22,7 +22,8 @@ class CustomAdapterMarca(private val fragment: MarcaFragment) : RecyclerView.Ada
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
         viewHolder.itemMarca.text = mMarcaLists[i].nombreMarca
         viewHolder.itemEditMarca.setOnClickListener {
-            fragment.raiseDialog(mMarcaLists[i].idMarca)
+            //fragment.raiseDialog(mMarcaLists[i].idMarca)
+            fragment.addFragmentToFragment(MarcaNuevaFragment.newInstance(mMarcaLists[i].idMarca,mMarcaLists[i].nombreMarca))
         }
         viewHolder.itemDeleteMarca.setOnClickListener {
             fragment.mMarcaViewModel.deleteMarca(mMarcaLists[i].idMarca)

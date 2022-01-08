@@ -77,7 +77,7 @@ class MarcaFragment : Fragment() {
         recyclerView.adapter = adapter
     }
 
-    private fun addFragmentToFragment(fragment: Fragment) {
+    fun addFragmentToFragment(fragment: Fragment) {
         val transaction = activity?.supportFragmentManager?.beginTransaction()
         transaction?.replace(R.id.container, fragment)
         //transaction?.disallowAddToBackStack()
