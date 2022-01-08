@@ -1,5 +1,6 @@
 package czaldivarp.fitecmotor.model.daos
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import czaldivarp.fitecmotor.model.entities.LargoHierro
 
@@ -7,7 +8,7 @@ import czaldivarp.fitecmotor.model.entities.LargoHierro
 interface LargoHierroDao {
 
     @Query("SELECT * FROM LargoHierro")
-    fun getAll(): List<LargoHierro>
+    fun getAll(): LiveData<List<LargoHierro>>
 
     @Query("SELECT * FROM LargoHierro WHERE idLargoHierro = :idLargoHierro")
     fun findById(idLargoHierro: Int): List<LargoHierro>

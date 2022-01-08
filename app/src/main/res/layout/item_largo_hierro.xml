@@ -74,6 +74,28 @@
             android:layout_toRightOf="@id/item_largo"
             android:layout_below="@id/item_diametro_i"
             android:textSize="18sp"/>
+
+        <ImageButton
+            android:id="@+id/ibEditLargoHierro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_toStartOf="@+id/ibDeleteLargoHierro"
+            android:layout_toLeftOf="@+id/ibDeleteLargoHierro"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_edit" />
+
+        <ImageButton
+            android:id="@+id/ibDeleteLargoHierro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_delete" />
     </RelativeLayout>
 
 </com.google.android.material.card.MaterialCardView>

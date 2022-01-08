@@ -33,8 +33,17 @@
     <string name="et_modelo">Modelo</string>
     <string name="helper_modelo">Entre un modelo de motor</string>
 
+    //Fragment Largo Hierro
+    <string name="et_largo_hierro">Largo del Hierro</string>
+    <string name="helper_largo_hierro">Entre el largo del hierro</string>
+    <string name="et_diametro_interior">Diametro Interior</string>
+    <string name="helper_diametro_interior">Entre el diametro interior</string>
+    <string name="et_diametro_exterior">Diametro Exterior</string>
+    <string name="helper_diametro_exterior">Entre el diametro exterior</string>
+
     //Errores de formularios
     <string name="campo_requerido">*Campo requerido</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
