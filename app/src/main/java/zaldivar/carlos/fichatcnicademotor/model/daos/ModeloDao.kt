@@ -1,14 +1,16 @@
 package czaldivarp.fitecmotor.model.daos
 
 import android.view.Display
+import androidx.lifecycle.LiveData
 import androidx.room.*
+import czaldivarp.fitecmotor.model.entities.Marca
 import czaldivarp.fitecmotor.model.entities.Modelo
 
 @Dao
 interface ModeloDao {
 
     @Query("SELECT * FROM Modelo")
-    fun getAll(): List<Modelo>
+    fun getAll(): LiveData<List<Modelo>>
 
     @Query("SELECT * FROM Modelo WHERE idModelo = :idModelo")
     fun findById(idModelo: Int): List<Modelo>
