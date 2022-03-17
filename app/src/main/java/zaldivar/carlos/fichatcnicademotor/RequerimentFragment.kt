@@ -1,4 +1,4 @@
-package zaldivar.carlos.fichatcnicademotor
+    package zaldivar.carlos.fichatcnicademotor
 
 import android.os.Build
 import android.os.Bundle
@@ -70,7 +70,6 @@ class RequerimentFragment : Fragment() {
         //val appId = "zaldivar.carlos.fichatcnicademotor"
         val appId = "zaldivar.carlos.calcelect"
         var step_view: VerticalStepView = view.findViewById(R.id.step_view)
-        var a: String = PaidCheked().isPurchased(requireContext(), appId)
         when {
             PaidCheked().isPurchased(requireContext(), appId) == "num00" -> {
                 option = 0

@@ -15,7 +15,7 @@ import czaldivarp.fitecmotor.model.entities.Modelo
 
 @Database(
     entities = [(FichaTecnica::class), (Modelo::class), (Marca::class), (LargoHierro::class)],
-    version = 1,
+    version = 4,
     exportSchema = false
 )
 abstract class FichaTecnicaDatabase : RoomDatabase() {

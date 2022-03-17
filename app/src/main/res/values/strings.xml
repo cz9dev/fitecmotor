@@ -30,16 +30,30 @@
     <string name="helper_marca">Entre una marca de motor</string>
 
     //Fragment Modelo
-    <string name="et_modelo">Modelo</string>
+    <string name="et_modelo">Modelo*</string>
     <string name="helper_modelo">Entre un modelo de motor</string>
 
     //Fragment Largo Hierro
-    <string name="et_largo_hierro">Largo del Hierro</string>
+    <string name="et_largo_hierro">Largo del Hierro*</string>
     <string name="helper_largo_hierro">Entre el largo del hierro</string>
     <string name="et_diametro_interior">Diametro Interior</string>
     <string name="helper_diametro_interior">Entre el diametro interior</string>
     <string name="et_diametro_exterior">Diametro Exterior</string>
     <string name="helper_diametro_exterior">Entre el diametro exterior</string>
+
+    //Fragment Ficha Tecnica
+    <string name="et_nombre_motor">Nombre Motor*</string>
+    <string name="et_corriente_nominal">Corriente Nominal*</string>
+    <string name="et_potencia">Potencia*</string>
+    <string name="et_ip">IP*</string>
+    <string name="et_tencion_nominal">Tención Nominal*</string>
+    <string name="et_diametro_succion">Diametro de Succión*</string>
+    <string name="et_diametro_descarga">Diametro de Descarga*</string>
+    <string name="et_tipo_capacitor">Tipo de Capacitor*</string>
+    <string name="et_capacidad_capacitor">Capacidad del Capacitor*</string>
+    <string name="et_datos_enrollado">Datos del Enrollado</string>
+    <string name="et_foto_motor">Foto del Motor</string>
+    <string name="et_fav">Fav</string>
 
     //Errores de formularios
     <string name="campo_requerido">*Campo requerido</string>

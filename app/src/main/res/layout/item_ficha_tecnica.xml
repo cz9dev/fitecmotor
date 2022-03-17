@@ -68,8 +68,22 @@
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             android:src="@drawable/ic_favorite_border"/>
-
-
+        <ImageButton
+            android:id="@+id/itemEditFichaTecnica"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@+id/itemDeleteFichaTecnica"
+            android:layout_toLeftOf="@id/itemDeleteFichaTecnica"
+            android:layout_below="@+id/item_descripcion"
+            android:src="@drawable/ic_edit" />
+        <ImageButton
+            android:id="@+id/itemDeleteFichaTecnica"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/item_descripcion"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_delete" />
     </RelativeLayout>
 
 </com.google.android.material.card.MaterialCardView>

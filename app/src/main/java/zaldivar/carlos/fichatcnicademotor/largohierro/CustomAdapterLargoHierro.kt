@@ -20,7 +20,6 @@ class CustomAdapterLargoHierro(private val fragment: LargoHierroFragment) :
         return ViewHolder(v)
     }
 
-    //tengo que arreglar esta funcion
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
         viewHolder.itemLargoHierro.text = mLargoHierroList[i].largo.toString()
         viewHolder.itemDiametroInterior.text = mLargoHierroList[i].diametroInterior.toString()

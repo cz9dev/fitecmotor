@@ -47,7 +47,7 @@ data class FichaTecnica(
     val tipoCapacitor: String,
     val capacidadCapacitor: String, // Permanente o Arranque
     val datosEnrrollado: String,
-    val direccionFoto: String,
+    val fav: Boolean,
     val idMarca: Int,
     val idModelo: Int,
     val idLargoHierro: Int

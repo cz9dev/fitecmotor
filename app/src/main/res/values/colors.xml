@@ -18,4 +18,7 @@
     <color name="progressBarIndicator">#ffffff</color>
     <color name="progressBarTrack">#7953d2</color>
 
+    <color name="grey_10">#e6e6e6</color>
+    <color name="blue_grey">#37474F</color>
+
 </resources>

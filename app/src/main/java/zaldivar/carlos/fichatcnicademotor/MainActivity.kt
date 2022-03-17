@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     //private var PACKAGE_ID: String = "zaldivar.calos.fichatcnicademotor"
     private var PACKAGE_ID: String = "zaldivar.carlos.calcelect"
+    //private var PACKAGE_ID: String = packageName
     var theme = "blanco"
 
     private lateinit var mDrawerLayout: DrawerLayout
@@ -73,9 +74,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         //PACKAGE_ID = packageName
         PACKAGE_ID = "zaldivar.carlos.calcelect"
+        //PACKAGE_ID = packageName
+
         // find progressbar by its id
         progressBar = findViewById(R.id.progressBar)
-
 
         if (MyPreferences(this).darkMode) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
@@ -111,6 +113,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val menuInflater = menuInflater
         menuInflater.inflate(R.menu.conf_menu, menu)
         return super.onCreateOptionsMenu(menu)
+    }
+
+    // llamo aca esta funcion para que los fragment anidados puedan hacerlo y funcionar bien
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        for (fragment in supportFragmentManager.fragments) {
+            fragment.onActivityResult(requestCode, resultCode, data)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

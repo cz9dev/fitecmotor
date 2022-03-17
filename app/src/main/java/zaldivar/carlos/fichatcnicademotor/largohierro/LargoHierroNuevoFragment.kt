@@ -128,8 +128,6 @@ class LargoHierroNuevoFragment : Fragment() {
         }
 
         if (id_largo_hierro != null) {
-            println(id_largo_hierro.toString())
-            println(largo_hierro.toString())
             etLargoHierro.editText?.setText(largo_hierro.toString())
             etDiametroInterior.editText?.setText(diametro_interior.toString())
             etDiametroExterior.editText?.setText(diametro_exterior.toString())

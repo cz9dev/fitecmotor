@@ -1,20 +1,23 @@
 package zaldivar.carlos.fichatcnicademotor.fichatecnica
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import zaldivar.carlos.fichatcnicademotor.R
+import zaldivar.carlos.fichatcnicademotor.model.viewmodel.FichaTecnicaViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
+const val TAG = "FichaTecnicaFragment"
 
 /**
  * A simple [Fragment] subclass.
@@ -26,7 +29,8 @@ class FichaTecnicaFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
-    val TAG = "FichaTecnicaFragment"
+    lateinit var fab: FloatingActionButton
+    lateinit var mFichaTecnicaViewModel: FichaTecnicaViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,10 +51,12 @@ class FichaTecnicaFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         var view: View = inflater.inflate(R.layout.fragment_ficha_tecnica, container, false)
-        var recyclerView: RecyclerView = view.findViewById(R.id.recyclerView)
-        var adapter = CustomAdapter()
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.adapter = adapter
+        setupList(view)
+
+        fab = view.findViewById(R.id.fab)
+        fab.setOnClickListener {
+            addFragmentToFragment(FichaTecnicaNuevaFragment())
+        }
 
         return view
     }
@@ -73,5 +79,35 @@ class FichaTecnicaFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    /**
+     * Funcion para llenar datos del recyclerView
+     * @param view
+     * @author carlos.zaldivar
+     */
+    private fun setupList(view: View) {
+        var recyclerView: RecyclerView = view.findViewById(R.id.recyclerView)
+        var adapter = CustomAdapterFichaTecnica(this)
+
+        mFichaTecnicaViewModel = ViewModelProvider(this).get(FichaTecnicaViewModel::class.java)
+        mFichaTecnicaViewModel.getFichaTecnica().observe(viewLifecycleOwner, { fichaTecnica ->
+            adapter.update(fichaTecnica)
+        })
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.adapter = adapter
+    }
+
+    /**
+     * Función para transicion entre fragmentos
+     * @param fragment
+     * @author carlos.zaldivar
+     */
+    fun addFragmentToFragment(fragment: Fragment) {
+        val transaction = activity?.supportFragmentManager?.beginTransaction()
+        transaction?.replace(R.id.container, fragment)
+        //transaction?.disallowAddToBackStack()
+        transaction?.addToBackStack(null)
+        transaction?.commit()
     }
 }
