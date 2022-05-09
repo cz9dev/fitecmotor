@@ -1,38 +1,26 @@
 package zaldivar.carlos.fichatcnicademotor.fichatecnica
 
 import android.app.Activity
-import android.app.Instrumentation
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.*
-import androidx.fragment.app.Fragment
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.ImageView
+import android.widget.*
 import androidx.appcompat.widget.Toolbar
+import androidx.collection.arrayMapOf
 import androidx.core.widget.doOnTextChanged
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModelProvider
-import androidx.room.InvalidationTracker
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputLayout
-import czaldivarp.fitecmotor.model.FichaTecnicaDatabase
-import czaldivarp.fitecmotor.model.daos.ModeloDao
-import czaldivarp.fitecmotor.model.entities.FichaTecnica
-import czaldivarp.fitecmotor.model.entities.Modelo
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import zaldivar.carlos.fichatcnicademotor.R
 import zaldivar.carlos.fichatcnicademotor.extensions.hideKeyboard
-import zaldivar.carlos.fichatcnicademotor.model.repository.ModeloRepository
 import zaldivar.carlos.fichatcnicademotor.model.viewmodel.FichaTecnicaViewModel
+import zaldivar.carlos.fichatcnicademotor.model.viewmodel.LargoHierroViewModel
+import zaldivar.carlos.fichatcnicademotor.model.viewmodel.MarcaViewModel
 import zaldivar.carlos.fichatcnicademotor.model.viewmodel.ModeloViewModel
-import zaldivar.carlos.fichatcnicademotor.modelo.CustomAdapterModelo
-import zaldivar.carlos.fichatcnicademotor.modelo.ModeloFragment
 import zaldivar.carlos.fichatcnicademotor.utils.ImageControler
-import java.sql.Array
 import java.util.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -95,8 +83,17 @@ class FichaTecnicaNuevaFragment : Fragment() {
     private lateinit var etModelo: TextInputLayout
     private lateinit var etLargoHierro: TextInputLayout
 
-
     private lateinit var mFichaTecnicaViewModel: FichaTecnicaViewModel
+    lateinit var modeloViewModel: ModeloViewModel
+    lateinit var marcaViewModel: MarcaViewModel
+    lateinit var largoHierroViewModel: LargoHierroViewModel
+
+    lateinit var itemsMarca: MutableList<String>
+    lateinit var itemsMarcaId: MutableList<Int>
+    lateinit var itemsModel: MutableList<String>
+    lateinit var itemsModelId: MutableList<Int>
+    lateinit var itemsLargoHierro: MutableList<String>
+    lateinit var itemsLargoHierroId: MutableList<Int>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -145,34 +142,124 @@ class FichaTecnicaNuevaFragment : Fragment() {
 
         limpiarErrores()
 
-        // Marcas
-        val itemsMarca = listOf("Marcas1", "Marcas2", "Marcas333", "Marcas sdfsfs")
-        val adapterMarca = ArrayAdapter(requireContext(), R.layout.list_item, itemsMarca)
-        (etMarca.editText as? AutoCompleteTextView)?.setAdapter(adapterMarca)
+        var itemTipoCapacitor = listOf("Permanente", "Arranque")
+        itemsMarca = mutableListOf<String>()
+        itemsMarcaId = mutableListOf<Int>()
+        itemsModel = mutableListOf<String>()
+        itemsModelId = mutableListOf<Int>()
+        itemsLargoHierro = mutableListOf<String>()
+        itemsLargoHierroId = mutableListOf<Int>()
 
-        // Modelos
-        val mModel = ViewModelProvider(this).get(ModeloViewModel::class.java)
-        var m: LiveData<List<Modelo>> = mModel.getModelo()
-        mModel.getModelo().observe(viewLifecycleOwner, { m -> m })
-        //mModel.getModelo().observe(viewLifecycleOwner, { fichaTecnica -> adapter.update(fichaTecnica)})
-        estoy aqui
+        // Tipo Capacitor (LLenar menu)
+        var tC = (etTipoCapacitor.editText as? AutoCompleteTextView)
+        var adapterTC = ArrayAdapter(requireContext(), R.layout.list_item, itemTipoCapacitor)
+        if (idFichaTecnica != null) {
+            if (tipoCapacitor.equals("Permanente")) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                    tC?.setText("Permanente", false)
+                }
+            } else {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                    tC?.setText("Arranque", false)
+                }
+            }
+        }
 
-        mFichaTecnicaViewModel = ViewModelProvider(this).get(FichaTecnicaViewModel::class.java)
-        val modeloDao = FichaTecnicaDatabase.getInstance(requireContext()).ModeloDao()
-        val modelo: LiveData<List<Modelo>> = modeloDao.getAll()
-
-
-        println("ESA ES LA COSA ${m.value?.get(0)?.nombreModelo}")
-
-        val itemsModelo = listOf("Modelo1", "Modelo2", "Modelo3", "Modelo4")
-        val adapterModelo = ArrayAdapter(requireContext(), R.layout.list_item, listOf(modelo.value))
-        (etModelo.editText as? AutoCompleteTextView)?.setAdapter(adapterModelo)
+        tC?.setAdapter(adapterTC)
 
         // Largo del Hierro
-        val itemsLargoHierro = listOf("Modelo1", "Modelo2", "Modelo3", "Modelo4")
+        var lH = (etLargoHierro.editText as? AutoCompleteTextView)
+        largoHierroViewModel = ViewModelProvider(this).get(LargoHierroViewModel::class.java)
+        largoHierroViewModel.getLargoHierro().observe(viewLifecycleOwner, {
+            for (item in it) {
+                itemsLargoHierroId.add(item.idLargoHierro)
+                itemsLargoHierro.add("largo: ${item.largo}, ø int: ${item.diametroInterior}, ø ext: ${item.diametroExterior}")
+
+                // Mostrar seleccionado el cargo del hierro en caso de que estemos editando la ficha tecnica
+                if (idFichaTecnica != null && item.idLargoHierro == idLargoHierro) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                        lH?.setText(
+                            "largo: ${item.largo}, ø int: ${item.diametroInterior}, ø ext: ${item.diametroExterior}",
+                            false
+                        )
+                    }
+                }
+
+            }
+        })
+
         val adapterLargoHierro =
             ArrayAdapter(requireContext(), R.layout.list_item, itemsLargoHierro)
-        (etLargoHierro.editText as? AutoCompleteTextView)?.setAdapter(adapterLargoHierro)
+
+        lH?.setAdapter(adapterLargoHierro)
+        lH?.setOnItemClickListener { parent, view, position, id ->
+            onItemClickLargoHierro(
+                parent,
+                view,
+                position,
+                id
+            )
+        }
+
+        // Marcas
+        var mA = (etMarca.editText as? AutoCompleteTextView)
+        marcaViewModel = ViewModelProvider(this).get(MarcaViewModel::class.java)
+        marcaViewModel.getMarcas().observe(viewLifecycleOwner, {
+            for (item in it) {
+                itemsMarcaId.add(item.idMarca)
+                itemsMarca.add(item.nombreMarca)
+
+                // Mostrar seleccionado la marca en caso de que estemos editando la ficha tecnica
+                if (idFichaTecnica != null && item.idMarca == idMarca) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                        mA?.setText(item.nombreMarca, false)
+                    }
+                }
+
+            }
+        })
+
+        val adapterMarca = ArrayAdapter(requireContext(), R.layout.list_item, itemsMarca)
+
+        mA?.setAdapter(adapterMarca)
+        mA?.setOnItemClickListener { parent, view, position, id ->
+            onItemClickMarca(
+                parent,
+                view,
+                position,
+                id
+            )
+        }
+
+        // Modelos
+        var mO = (etModelo.editText as? AutoCompleteTextView)
+        modeloViewModel = ViewModelProvider(this).get(ModeloViewModel::class.java)
+        modeloViewModel.getModelo().observe(viewLifecycleOwner, {
+            for (item in it) {
+                itemsModelId.add(item.idModelo)
+                itemsModel.add(item.nombreModelo)
+
+                // Mostrar seleccionado el modelo en caso de que estemos editando la ficha tecnica
+                if (idFichaTecnica != null && item.idModelo == idModelo) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                        mO?.setText(item.nombreModelo, false)
+                    }
+                }
+
+            }
+        })
+
+        val adapter = ArrayAdapter(requireContext(), R.layout.list_item, itemsModel)
+
+        mO?.setAdapter(adapter)
+        mO?.setOnItemClickListener { parent, view, position, id ->
+            onItemClickModelo(
+                parent,
+                view,
+                position,
+                id
+            )
+        }
 
         /**
          * Programación de evento OnClick para buscar imagen de Motor
@@ -199,16 +286,45 @@ class FichaTecnicaNuevaFragment : Fragment() {
             etTensionNominal.editText!!.setText(tensionNominal.toString())
             etDiametroSuccion.editText!!.setText(diametroSuccion.toString())
             etDiametroDescarga.editText!!.setText(diametroDescarga.toString())
-            etTipoCapacitor.editText!!.setText(tipoCapacitor.toString())
             etCapacidadCapacitor.editText!!.setText(capacidadCapacitor.toString())
             etDatosEnrrollado.editText!!.setText(datosEnrrollado.toString())
             etFoto.setImageURI(ImageControler.getImageUri(this.requireContext(), idFichaTecnica!!))
-            etMarca.editText!!.setText(idMarca.toString())
-            etModelo.editText!!.setText(idModelo.toString())
-            etLargoHierro.editText!!.setText(idLargoHierro.toString())
         }
 
         return view
+    }
+
+    /**
+     * Funcion para implementar el evento inItemClick para el Largo del Hierro
+     * @param parent
+     * @param view
+     * @param position
+     * @param id
+     */
+    fun onItemClickLargoHierro(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        idLargoHierro = itemsLargoHierroId[position]
+    }
+
+    /**
+     * Funcion para implementar el evento inItemClick para la Marca
+     * @param parent
+     * @param view
+     * @param position
+     * @param id
+     */
+    fun onItemClickMarca(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        idMarca = itemsMarcaId[position]
+    }
+
+    /**
+     * Funcion para implementar el evento inItemClick para el Modelo
+     * @param parent
+     * @param view
+     * @param position
+     * @param id
+     */
+    fun onItemClickModelo(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        idModelo = itemsModelId[position]
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -231,59 +347,72 @@ class FichaTecnicaNuevaFragment : Fragment() {
             val txtTipoCapacitor = etTipoCapacitor.editText!!.text.toString()
             val txtCapacidadCapacitor = etCapacidadCapacitor.editText!!.text.toString()
             val txtDatosEnrrollado = etDatosEnrrollado.editText!!.text.toString()
-            //val txtDireccionFoto = etFoto.imageMatrix.toString()
             val txtMarca = etMarca.editText!!.text.toString()
             val txtModelo = etModelo.editText!!.text.toString()
             val txtLargoHierro = etLargoHierro.editText!!.text.toString()
 
+            var cualTomaFoco = mutableListOf<TextInputLayout>()
             if (txtNombreMotor == "") {
                 etNombreMotor.error = getString(R.string.campo_requerido)
-                good = false
-            }
-            if (txtCorrienteNominal == "") {
-                etCorrienteNominal.error = getString(R.string.campo_requerido)
-                good = false
-            }
-            if (txtPotencia == "") {
-                etPotencia.error = getString(R.string.campo_requerido)
-                good = false
-            }
-            if (txtIP == "") {
-                etIp.error = getString(R.string.campo_requerido)
-                good = false
-            }
-            if (txtTencionNominal == "") {
-                etTensionNominal.error = getString(R.string.campo_requerido)
-                good = false
-            }
-            if (txtDiametroSuccion == "") {
-                etDiametroSuccion.error = getString(R.string.campo_requerido)
-                good = false
-            }
-            if (txtDiametroDescarga == "") {
-                etDiametroDescarga.error = getString(R.string.campo_requerido)
-                good = false
-            }
-            if (txtTipoCapacitor == "") {
-                etTipoCapacitor.error = getString(R.string.campo_requerido)
-                good = false
-            }
-            if (txtCapacidadCapacitor == "") {
-                etCapacidadCapacitor.error = getString(R.string.campo_requerido)
-                good = false
-            }
-            if (txtMarca == "") {
-                etMarca.error = getString(R.string.campo_requerido)
-                good = false
-            }
-            if (txtModelo == "") {
-                etModelo.error = getString(R.string.campo_requerido)
+                cualTomaFoco.add(etNombreMotor)
                 good = false
             }
             if (txtLargoHierro == "") {
                 etLargoHierro.error = getString(R.string.campo_requerido)
+                cualTomaFoco.add(etLargoHierro)
                 good = false
             }
+            if (txtMarca == "") {
+                etMarca.error = getString(R.string.campo_requerido)
+                cualTomaFoco.add(etMarca)
+                good = false
+            }
+            if (txtModelo == "") {
+                etModelo.error = getString(R.string.campo_requerido)
+                cualTomaFoco.add(etModelo)
+                good = false
+            }
+            if (txtCorrienteNominal == "") {
+                etCorrienteNominal.error = getString(R.string.campo_requerido)
+                cualTomaFoco.add(etCorrienteNominal)
+                good = false
+            }
+            if (txtPotencia == "") {
+                etPotencia.error = getString(R.string.campo_requerido)
+                cualTomaFoco.add(etPotencia)
+                good = false
+            }
+            if (txtIP == "") {
+                etIp.error = getString(R.string.campo_requerido)
+                cualTomaFoco.add(etIp)
+                good = false
+            }
+            if (txtTencionNominal == "") {
+                etTensionNominal.error = getString(R.string.campo_requerido)
+                cualTomaFoco.add(etTensionNominal)
+                good = false
+            }
+            if (txtDiametroSuccion == "") {
+                etDiametroSuccion.error = getString(R.string.campo_requerido)
+                cualTomaFoco.add(etDiametroSuccion)
+                good = false
+            }
+            if (txtDiametroDescarga == "") {
+                etDiametroDescarga.error = getString(R.string.campo_requerido)
+                cualTomaFoco.add(etDiametroDescarga)
+                good = false
+            }
+            if (txtTipoCapacitor == "") {
+                etTipoCapacitor.error = getString(R.string.campo_requerido)
+                cualTomaFoco.add(etTipoCapacitor)
+                good = false
+            }
+            if (txtCapacidadCapacitor == "") {
+                etCapacidadCapacitor.error = getString(R.string.campo_requerido)
+                cualTomaFoco.add(etCapacidadCapacitor)
+                good = false
+            }
+
             if (good) {
                 // Comprueba si el idFichaTecnica no es nulo es que es para modificar
                 // la ficha tecnica, de lo contrario es para agregar la ficha tecnica
@@ -321,15 +450,18 @@ class FichaTecnicaNuevaFragment : Fragment() {
                         txtCapacidadCapacitor.toString(),
                         txtDatosEnrrollado.toString()!!,
                         fav = false,
-                        1,
-                        1,
-                        1,
+                        idMarca!!,
+                        idModelo!!,
+                        idLargoHierro!!,
                         imageUri,
                         requireContext()
                     )
                 }
                 hideKeyboard()
                 addFragmentToFragment(FichaTecnicaFragment())
+            }
+            else{
+                cualTomaFoco[0].requestFocus()
             }
         }
         return super.onOptionsItemSelected(item)

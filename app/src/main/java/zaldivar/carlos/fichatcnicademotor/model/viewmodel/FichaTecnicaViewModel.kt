@@ -10,12 +10,13 @@ import czaldivarp.fitecmotor.model.entities.FichaTecnica
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import zaldivar.carlos.fichatcnicademotor.model.FichaTecnicaDetail
 import zaldivar.carlos.fichatcnicademotor.model.repository.FichaTecnicaRepository
 import zaldivar.carlos.fichatcnicademotor.utils.ImageControler
 
 class FichaTecnicaViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: FichaTecnicaRepository
-    private val fichaTecnica: LiveData<List<FichaTecnica>>
+    private val fichaTecnica: LiveData<List<FichaTecnicaDetail>>
 
     init {
         val fichaTecnicaDao = FichaTecnicaDatabase.getInstance(application).FichaTecnicaDao()
@@ -23,7 +24,7 @@ class FichaTecnicaViewModel(application: Application) : AndroidViewModel(applica
         fichaTecnica = repository.getFichaTecnica
     }
 
-    fun getFichaTecnica(): LiveData<List<FichaTecnica>> {
+    fun getFichaTecnica(): LiveData<List<FichaTecnicaDetail>> {
         return fichaTecnica
     }
 

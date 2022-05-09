@@ -36,7 +36,8 @@ import androidx.room.PrimaryKey
     ]
 )
 data class FichaTecnica(
-    @PrimaryKey(autoGenerate = true) val idFichaTecnica: Int,
+    @PrimaryKey(autoGenerate = true)
+    val idFichaTecnica: Int,
     val nombreMotor: String,
     val corrienteNominal: Double,
     val potencia: Double,
@@ -44,8 +45,8 @@ data class FichaTecnica(
     val tensionNominal: Double,
     val diametroSuccion: Double,
     val diametroDescarga: Double,
-    val tipoCapacitor: String,
-    val capacidadCapacitor: String, // Permanente o Arranque
+    val tipoCapacitor: String, // Permanente o Arranque
+    val capacidadCapacitor: String,
     val datosEnrrollado: String,
     val fav: Boolean,
     val idMarca: Int,

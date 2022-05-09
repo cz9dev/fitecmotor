@@ -112,6 +112,7 @@
                 android:layout_below="@id/etFTModelo"
                 android:clipToPadding="true"
                 android:hint="@string/et_corriente_nominal"
+                app:suffixText="@string/suffixIn"
                 app:counterEnabled="true"
                 app:counterMaxLength="40"
                 app:errorEnabled="true">
@@ -130,6 +131,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/etCorrienteNominal"
                 android:hint="@string/et_potencia"
+                app:suffixText="@string/suffixPN"
                 app:counterEnabled="true"
                 app:counterMaxLength="40"
                 app:errorEnabled="true">
@@ -166,6 +168,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/etIP"
                 android:hint="@string/et_tencion_nominal"
+                app:suffixText="@string/suffixVn"
                 app:counterEnabled="true"
                 app:counterMaxLength="40"
                 app:errorEnabled="true">
@@ -184,6 +187,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/etTencionNominal"
                 android:hint="@string/et_diametro_succion"
+                app:suffixText="@string/suffixDs"
                 app:counterEnabled="true"
                 app:counterMaxLength="40"
                 app:errorEnabled="true">
@@ -202,6 +206,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/etDiametroSuccion"
                 android:hint="@string/et_diametro_descarga"
+                app:suffixText="@string/suffixDd"
                 app:counterEnabled="true"
                 app:counterMaxLength="40"
                 app:errorEnabled="true">
@@ -215,19 +220,18 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/etTipoCapacitor"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/etDiametroDescarga"
                 android:hint="@string/et_tipo_capacitor"
-                app:counterEnabled="true"
-                app:counterMaxLength="40"
+                android:layout_below="@id/etDiametroDescarga"
                 app:errorEnabled="true">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <AutoCompleteTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text" />
+                    android:inputType="none"
+                    />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -238,6 +242,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/etTipoCapacitor"
                 android:hint="@string/et_capacidad_capacitor"
+                app:suffixText="@string/suffixC"
                 app:counterEnabled="true"
                 app:counterMaxLength="40"
                 app:errorEnabled="true">

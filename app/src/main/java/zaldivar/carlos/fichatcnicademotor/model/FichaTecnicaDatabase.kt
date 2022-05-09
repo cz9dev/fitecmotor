@@ -12,10 +12,12 @@ import czaldivarp.fitecmotor.model.daos.ModeloDao
 import czaldivarp.fitecmotor.model.entities.LargoHierro
 import czaldivarp.fitecmotor.model.entities.Marca
 import czaldivarp.fitecmotor.model.entities.Modelo
+import zaldivar.carlos.fichatcnicademotor.model.FichaTecnicaDetail
 
 @Database(
     entities = [(FichaTecnica::class), (Modelo::class), (Marca::class), (LargoHierro::class)],
-    version = 4,
+    views = [FichaTecnicaDetail::class],
+    version = 5,
     exportSchema = false
 )
 abstract class FichaTecnicaDatabase : RoomDatabase() {

@@ -4,15 +4,13 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import czaldivarp.fitecmotor.model.FichaTecnicaDatabase
-import czaldivarp.fitecmotor.model.entities.Marca
 import czaldivarp.fitecmotor.model.entities.Modelo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import zaldivar.carlos.fichatcnicademotor.model.repository.MarcaRepository
 import zaldivar.carlos.fichatcnicademotor.model.repository.ModeloRepository
 
-class ModeloViewModel(application: Application) : AndroidViewModel(application) {
+open class ModeloViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: ModeloRepository
     private val modelo: LiveData<List<Modelo>>
 

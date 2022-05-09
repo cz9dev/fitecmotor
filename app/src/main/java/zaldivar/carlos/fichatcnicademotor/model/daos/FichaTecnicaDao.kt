@@ -3,14 +3,15 @@ package czaldivarp.fitecmotor.model.daos
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import czaldivarp.fitecmotor.model.entities.FichaTecnica
+import zaldivar.carlos.fichatcnicademotor.model.FichaTecnicaDetail
 
 @Dao
 interface FichaTecnicaDao {
 
-    @Query("SELECT * FROM FichaTecnica")
-    fun getAll(): LiveData<List<FichaTecnica>>
+    @Query("SELECT * FROM v_ficha_tecnica_all")
+    fun getAll(): LiveData<List<FichaTecnicaDetail>>
 
-    @Query("SELECT * FROM FichaTecnica WHERE idFichaTecnica = :idFichaTecnica")
+    @Query("SELECT * FROM v_ficha_tecnica_all WHERE idFichaTecnica = :idFichaTecnica")
     fun findById(idFichaTecnica: Int): List<FichaTecnica>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)

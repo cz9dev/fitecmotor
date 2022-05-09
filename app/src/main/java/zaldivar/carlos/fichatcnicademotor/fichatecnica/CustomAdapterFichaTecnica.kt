@@ -6,19 +6,15 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
-import androidx.core.content.ContentProviderCompat
 import androidx.recyclerview.widget.RecyclerView
 import czaldivarp.fitecmotor.model.entities.FichaTecnica
-import czaldivarp.fitecmotor.model.entities.LargoHierro
 import zaldivar.carlos.fichatcnicademotor.R
-import zaldivar.carlos.fichatcnicademotor.largohierro.LargoHierroFragment
-import zaldivar.carlos.fichatcnicademotor.largohierro.LargoHierroNuevoFragment
+import zaldivar.carlos.fichatcnicademotor.model.FichaTecnicaDetail
 import zaldivar.carlos.fichatcnicademotor.utils.ImageControler
 
 class CustomAdapterFichaTecnica(private val fragment: FichaTecnicaFragment) :
     RecyclerView.Adapter<CustomAdapterFichaTecnica.ViewHolder>() {
-    var mFichaTecnicaList = emptyList<FichaTecnica>()
+    var mFichaTecnicaList = emptyList<FichaTecnicaDetail>()
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
         val v = LayoutInflater.from(viewGroup.context)
@@ -34,29 +30,29 @@ class CustomAdapterFichaTecnica(private val fragment: FichaTecnicaFragment) :
             )
         )
         viewHolder.itemNombreMotor.text = "Nombre: " + mFichaTecnicaList[i].nombreMotor
-        viewHolder.itemMarcaMotor.text = "Marca: " + mFichaTecnicaList[i].idMarca.toString()
-        viewHolder.itemModeloMotor.text = "Modelo: " + mFichaTecnicaList[i].idModelo.toString()
+        viewHolder.itemMarcaMotor.text = "Marca: " + mFichaTecnicaList[i].nombreMarca
+        viewHolder.itemModeloMotor.text = "Modelo: " + mFichaTecnicaList[i].nombreModelo
         viewHolder.itemDescriptionMotor.text =
             "Datos enrrollado: " + mFichaTecnicaList[i].datosEnrrollado
 
-        if (mFichaTecnicaList[i].fav) viewHolder.itemFavoryte.setImageResource(R.drawable.ic_favorite)
+        if (mFichaTecnicaList[i].fav!!) viewHolder.itemFavoryte.setImageResource(R.drawable.ic_favorite)
         else viewHolder.itemFavoryte.setImageResource(R.drawable.ic_favorite_border)
 
         viewHolder.itemEditFichaTecnica.setOnClickListener {
             fragment.addFragmentToFragment(
                 FichaTecnicaNuevaFragment.newInstance(
                     mFichaTecnicaList[i].idFichaTecnica,
-                    mFichaTecnicaList[i].nombreMotor,
-                    mFichaTecnicaList[i].corrienteNominal,
-                    mFichaTecnicaList[i].potencia,
-                    mFichaTecnicaList[i].ip,
-                    mFichaTecnicaList[i].tensionNominal,
-                    mFichaTecnicaList[i].diametroSuccion,
-                    mFichaTecnicaList[i].diametroDescarga,
-                    mFichaTecnicaList[i].tipoCapacitor,
-                    mFichaTecnicaList[i].capacidadCapacitor, // Permanente o Arranque
-                    mFichaTecnicaList[i].datosEnrrollado,
-                    mFichaTecnicaList[i].fav, // esto es direccion de favorito
+                    mFichaTecnicaList[i].nombreMotor!!,
+                    mFichaTecnicaList[i].corrienteNominal!!,
+                    mFichaTecnicaList[i].potencia!!,
+                    mFichaTecnicaList[i].ip!!,
+                    mFichaTecnicaList[i].tensionNominal!!,
+                    mFichaTecnicaList[i].diametroSuccion!!,
+                    mFichaTecnicaList[i].diametroDescarga!!,
+                    mFichaTecnicaList[i].tipoCapacitor!!,
+                    mFichaTecnicaList[i].capacidadCapacitor!!, // Permanente o Arranque
+                    mFichaTecnicaList[i].datosEnrrollado!!,
+                    mFichaTecnicaList[i].fav!!, // esto es direccion de favorito
                     mFichaTecnicaList[i].idMarca,
                     mFichaTecnicaList[i].idModelo,
                     mFichaTecnicaList[i].idLargoHierro
@@ -71,7 +67,7 @@ class CustomAdapterFichaTecnica(private val fragment: FichaTecnicaFragment) :
         viewHolder.itemFavoryte.setOnClickListener {
             var stateFav: Boolean
 
-            if (mFichaTecnicaList[i].fav) stateFav = false
+            if (mFichaTecnicaList[i].fav!!) stateFav = false
             else stateFav = true
 
             fragment.mFichaTecnicaViewModel.editFavoryte(mFichaTecnicaList[i].idFichaTecnica, stateFav)
@@ -104,7 +100,7 @@ class CustomAdapterFichaTecnica(private val fragment: FichaTecnicaFragment) :
         }
     }
 
-    fun update(FichaTecnica: List<FichaTecnica>) {
+    fun update(FichaTecnica: List<FichaTecnicaDetail>) {
         println("UPDATING DATA")
         this.mFichaTecnicaList = FichaTecnica
         notifyDataSetChanged()

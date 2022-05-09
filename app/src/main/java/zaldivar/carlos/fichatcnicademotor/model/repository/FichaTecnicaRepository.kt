@@ -9,10 +9,11 @@ import czaldivarp.fitecmotor.model.entities.FichaTecnica
 import czaldivarp.fitecmotor.model.entities.LargoHierro
 import czaldivarp.fitecmotor.model.entities.Marca
 import czaldivarp.fitecmotor.model.entities.Modelo
+import zaldivar.carlos.fichatcnicademotor.model.FichaTecnicaDetail
 
 class FichaTecnicaRepository(private val fichaTecnicaDao: FichaTecnicaDao) {
 
-    val getFichaTecnica: LiveData<List<FichaTecnica>> = fichaTecnicaDao.getAll()
+    val getFichaTecnica: LiveData<List<FichaTecnicaDetail>> = fichaTecnicaDao.getAll()
 
     fun addFichaTecnica(fichaTecnica: FichaTecnica): Long {
         return fichaTecnicaDao.insert(fichaTecnica)
